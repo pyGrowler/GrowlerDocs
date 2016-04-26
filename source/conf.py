@@ -17,13 +17,13 @@ import os
 import sys
 import shlex
 import sphinx_rtd_theme
-
+from pathlib import Path
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-GROWLER_SRC_PATH = os.environ.get('GROWLER_PATH', '../../growler')
-sys.path.insert(0, os.path.abspath(GROWLER_SRC_PATH))
+GROWLER_SRC_PATH = Path(os.environ.get('GROWLER_PATH', '../'))
+sys.path.insert(0, GROWLER_SRC_PATH.resolve())
 
 try:
     import growler
@@ -32,6 +32,12 @@ except ImportError:
           "variable 'GROWLER_PATH' to point at the root directory (or install "
           "growler).")
     sys.exit(1)
+
+DOC_DIR = Path(__file__) / '..' / '..'
+
+def local_dir(filename):
+    return str((DOC_DIR / filename).resolve())
+
 
 # -- General configuration ------------------------------------------------
 
@@ -49,7 +55,7 @@ extensions = [
 ]
 
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['../templates']
+templates_path = [local_dir('templates')]
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
@@ -147,7 +153,7 @@ html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
-html_logo = '../resources/GrowlerLogo.png'
+html_logo = local_dir('resources/img/GrowlerLogo.png')
 
 # The name of an image file (within the static path) to use as favicon of the
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
@@ -157,7 +163,7 @@ html_logo = '../resources/GrowlerLogo.png'
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['../static']
+html_static_path = [local_dir('static')]
 
 # Add any extra paths that contain custom files (such as robots.txt or
 # .htaccess) here, relative to this directory. These files are copied
