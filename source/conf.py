@@ -19,11 +19,16 @@ import shlex
 import sphinx_rtd_theme
 from pathlib import Path
 
+DOC_DIR = Path(__file__) / '..' / '..'
+
+def local_dir(filename):
+    return str((DOC_DIR / filename).resolve())
+
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-GROWLER_SRC_PATH = Path(os.environ.get('GROWLER_PATH', '../'))
-sys.path.insert(0, GROWLER_SRC_PATH.resolve())
+GROWLER_SRC_PATH = Path(os.environ.get('GROWLER_PATH', local_dir('..')))
+sys.path.insert(0, str(GROWLER_SRC_PATH.resolve()))
 
 try:
     import growler
@@ -32,12 +37,6 @@ except ImportError:
           "variable 'GROWLER_PATH' to point at the root directory (or install "
           "growler).")
     sys.exit(1)
-
-DOC_DIR = Path(__file__) / '..' / '..'
-
-def local_dir(filename):
-    return str((DOC_DIR / filename).resolve())
-
 
 # -- General configuration ------------------------------------------------
 
