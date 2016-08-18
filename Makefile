@@ -56,7 +56,7 @@ html:
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
 
-serve_html: html
+serve-html: html
 	cd _build/html && python3 -m http.server 9090
 
 dirhtml:
