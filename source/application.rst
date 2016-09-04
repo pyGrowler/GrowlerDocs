@@ -10,12 +10,3 @@ Growler.Application
    :members:
    :special-members:
    :exclude-members: __call__
-
-Contents:
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
